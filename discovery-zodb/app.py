@@ -1,24 +1,23 @@
 import ZODB
-from ZODB import DB
 from ZODB.FileStorage import FileStorage
-from ZODB.PersistentMapping import PersistentMapping
-from persistence import Persisten
+import persistent
 import transaction
 from datetime import datetime
+import names
 
 
-storage = FileStorage("employees.fs")
-db = DB(storage)
+storage = FileStorage("database-employees.fs")
+db = ZODB.DB(storage)
 connection = db.open()
 root = connection.root()
 
 
-class Employeer(Persistent):
+class Employee(persistent.Persistent):
     def __init__(
         self, 
         name: str, 
         date_contract: datetime,
-        manager: Employeer = None
+        manager = None
     ):
         self.name = name
         self.manager = manager
@@ -26,13 +25,13 @@ class Employeer(Persistent):
 
     def __str__(self):
         if self.manager:
-            message = '{self.name} contracted by {self.manager} at {self.date_contract}'
+            message = f'{self.name} contracted by {self.manager.name} at {self.date_contract}'
         else: 
-            message = '{self.name} contracted at {self.date_contract}'
+            message = f'{self.name} contracted at {self.date_contract}'
         return message
 
 
-if not root.has_key("employees"):
+if "employees" not in root.keys():
     root["employees"] = {}
 
 
@@ -44,18 +43,27 @@ def list_employers():
         print(f'{employee}')
 
 
-def add_employee(employeer: Employeer) -> None:
-    root[employee.name] = employeer
+def add_employee(employeer: Employee) -> None:
+    employees[employee.name] = employeer
     root['employees'] = employees
     transaction.commit()
 
 
-if __name__=="__main__":
-    list_employers()
-
-    manager = Employeer(name='Linus Torvalds', date_contract=datetime.now())
-    employee = Employeer(name='Carlos Neto', manager=manager, date_contract=datetime.now())
-
-    connection.close()
+if __name__ == "__main__":
+    linus = Employee(
+        name='Linus Torvalds',
+        date_contract=datetime.now()
+    )
+    carlos = Employee(
+        name='Carlos Neto',
+        manager=linus,
+        date_contract=datetime.now()
+    )
+    employee = Employee(
+        name=names.get_full_name(gender="female"),
+        manager=carlos,
+        date_contract=datetime.now()
+    )
     add_employee(employee)
     list_employers()
+    connection.close()
