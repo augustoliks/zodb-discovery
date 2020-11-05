@@ -69,3 +69,5 @@ if __name__ == "__main__":
     print(f'[+] Add new employee: {employee.name}\n')
     list_employers()
     connection.close()
+
+    pass

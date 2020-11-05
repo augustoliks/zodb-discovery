@@ -25,13 +25,18 @@ $ cd discovery-zodb/
 $ virtualenv --python=$(which python3) venv
 $ source venv/bin/activate
 (venv) $ pip3 install -r requirements.txt 
+```
+
+```shell
 (venv) $ python3 app.py 
 
 [+] Add new employee: Tommie Hayes
 
 read all employees on disk
          - Tommie Hayes contracted by Carlos Neto at 2020-11-04 22:30:59.065217
+```
 
+```shell
 (venv) $ python3 app.py 
 
 Ignoring index for /home/augustoliks/gitlab/discovery-zodb/discovery-zodb/database-employees.fs
@@ -41,8 +46,10 @@ Ignoring index for /home/augustoliks/gitlab/discovery-zodb/discovery-zodb/databa
 read all employees on disk
          - Tommie Hayes contracted by Carlos Neto at 2020-11-04 22:30:59.065217
          - Emily Walt contracted by Carlos Neto at 2020-11-04 22:31:02.335004
+```
 
-(venv) [augustoliks@localhost discovery-zodb]$ python3 app.py 
+```shell
+(venv) $ python3 app.py 
 
 [+] Add new employee: Naida Chavis
 
@@ -50,8 +57,10 @@ read all employees on disk
          - Tommie Hayes contracted by Carlos Neto at 2020-11-04 22:30:59.065217
          - Emily Walt contracted by Carlos Neto at 2020-11-04 22:31:02.335004
          - Naida Chavis contracted by Carlos Neto at 2020-11-04 22:31:04.289794
+```
 
-(venv) [augustoliks@localhost discovery-zodb]$ python3 app.py 
+```shell
+(venv) $ python3 app.py 
 
 [+] Add new employee: Edna Jackson
 
