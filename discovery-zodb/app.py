@@ -39,8 +39,9 @@ employees = root["employees"]
 
 
 def list_employers():
+    print('read all employees on disk')
     for employee in employees.values():
-        print(f'{employee}')
+        print(f'\t - {employee}')
 
 
 def add_employee(employeer: Employee) -> None:
@@ -65,5 +66,6 @@ if __name__ == "__main__":
         date_contract=datetime.now()
     )
     add_employee(employee)
+    print(f'[+] Add new employee: {employee.name}\n')
     list_employers()
     connection.close()
